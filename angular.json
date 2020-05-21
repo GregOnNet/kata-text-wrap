@@ -25,7 +25,9 @@
               "apps/text-break/src/favicon.ico",
               "apps/text-break/src/assets"
             ],
-            "styles": ["apps/text-break/src/styles.scss"],
+            "styles": [
+              "apps/text-break/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -83,7 +85,10 @@
               "apps/text-break/tsconfig.app.json",
               "apps/text-break/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/text-break/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/text-break/**"
+            ]
           }
         },
         "test": {
@@ -118,8 +123,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/text-break-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/text-break-e2e/**"]
+            "tsConfig": [
+              "apps/text-break-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/text-break-e2e/**"
+            ]
           }
         }
       }
@@ -137,7 +147,10 @@
               "libs/text-breaker/tsconfig.lib.json",
               "libs/text-breaker/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/text-breaker/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/text-breaker/**"
+            ]
           }
         },
         "test": {
@@ -145,6 +158,66 @@
           "options": {
             "jestConfig": "libs/text-breaker/jest.config.js",
             "tsConfig": "libs/text-breaker/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "text-break-cli": {
+      "root": "apps/text-break-cli",
+      "sourceRoot": "apps/text-break-cli/src",
+      "projectType": "application",
+      "prefix": "text-break-cli",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/text-break-cli",
+            "main": "apps/text-break-cli/src/main.ts",
+            "tsConfig": "apps/text-break-cli/tsconfig.app.json",
+            "assets": [
+              "apps/text-break-cli/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/text-break-cli/src/environments/environment.ts",
+                  "with": "apps/text-break-cli/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "text-break-cli:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/text-break-cli/tsconfig.app.json",
+              "apps/text-break-cli/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/text-break-cli/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/text-break-cli/jest.config.js",
+            "tsConfig": "apps/text-break-cli/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
