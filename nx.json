@@ -25,6 +25,9 @@
     "text-break-e2e": {
       "tags": [],
       "implicitDependencies": ["text-break"]
+    },
+    "text-breaker": {
+      "tags": []
     }
   }
 }

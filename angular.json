@@ -123,6 +123,32 @@
           }
         }
       }
+    },
+    "text-breaker": {
+      "root": "libs/text-breaker",
+      "sourceRoot": "libs/text-breaker/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/text-breaker/tsconfig.lib.json",
+              "libs/text-breaker/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/text-breaker/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/text-breaker/jest.config.js",
+            "tsConfig": "libs/text-breaker/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
