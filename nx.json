@@ -24,16 +24,16 @@
     }
   },
   "projects": {
-    "text-break": {
-      "tags": []
+    "text-wrap": {
+      "tags": ["lib"]
     },
-    "text-break-e2e": {
+    "text-wrap-e2e": {
       "tags": [],
       "implicitDependencies": [
-        "text-break"
+        "text-wrap-web"
       ]
     },
-    "text-wrap": {
+    "text-wrap-web": {
       "tags": []
     },
     "text-break-cli": {
