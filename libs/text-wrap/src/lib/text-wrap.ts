@@ -1,19 +1,19 @@
-import { TextProcessorOptions } from './text-processor.options';
+import { TextWrapOptions } from './text-wrap.options';
 import { LineBreaker } from './line-breaker/line-breaker';
 import { WordSplitter } from './word-splitter/word-splitter';
 
-const lineBreakerOptionsDefault: TextProcessorOptions = {
+const lineBreakerOptionsDefault: TextWrapOptions = {
   lineLength: 50,
 };
 
-export class TextProcessor {
+export class TextWrap {
   // poor man's dependency injection
   private wordSplitter = new WordSplitter();
   private lineBreaker = new LineBreaker();
 
-  private options: TextProcessorOptions = lineBreakerOptionsDefault;
+  private options: TextWrapOptions = lineBreakerOptionsDefault;
 
-  configure(options: TextProcessorOptions): TextProcessor {
+  configure(options: TextWrapOptions): TextWrap {
     this.options = { ...this.options, ...options };
     return this;
   }

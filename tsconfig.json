@@ -16,7 +16,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@flow-design/text-breaker": ["libs/text-breaker/src/index.ts"]
+      "@flow-design/text-wrap": ["libs/text-wrap/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

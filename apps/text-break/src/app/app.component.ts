@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { TextProcessor } from '@flow-design/text-breaker';
+import { TextWrap } from '@flow-design/text-wrap';
 import { map, tap } from 'rxjs/operators';
 import { merge } from 'rxjs';
 
@@ -10,7 +10,7 @@ import { merge } from 'rxjs';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  textProcessor = new TextProcessor();
+  textWrap = new TextWrap();
   textInput = new FormControl('Some example text');
   maxLineLengthInput = new FormControl(50);
 
@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
     this.changes
       .pipe(
         map(() =>
-          this.textProcessor
+          this.textWrap
             .configure({ lineLength: this.maxLineLengthInput.value })
             .process(this.textInput.value)
         ),

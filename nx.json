@@ -33,7 +33,7 @@
         "text-break"
       ]
     },
-    "text-breaker": {
+    "text-wrap": {
       "tags": []
     },
     "text-break-cli": {
