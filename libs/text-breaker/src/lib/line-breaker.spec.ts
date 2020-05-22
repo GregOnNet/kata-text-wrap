@@ -1,3 +1,5 @@
+import { Word, WordSplitter } from './word-splitter.spec';
+
 describe('@flow-design/line-breaker', () => {
   describe('When no text is passed', () => {
     it.each`
@@ -14,13 +16,14 @@ describe('@flow-design/line-breaker', () => {
   });
 
   describe('When words are passed', () => {
-    it.skip('breaks lines by the given length', () => {
+    it('breaks lines by the given length', () => {
       const word = 'hallo';
-      const words = Array(10).fill(word);
+      const text = Array(10).fill(word).join(' ');
+      const words = new WordSplitter().process(text);
       const lineBreaker = new LineBreaker();
-      const result = lineBreaker.process(words);
+      const result = lineBreaker.configure({ lineLength: 50 }).process(words);
 
-      expect(result.value);
+      expect(result.value.length).toBe(2);
     });
   });
 });
@@ -44,15 +47,57 @@ function emptyResult(): Result<null> {
   };
 }
 
-type Line = string;
+type Line = Word[];
+
+export interface LineBreakerOptions {
+  lineLength: number;
+}
+
+export const lineBreakerOptionsDefault: LineBreakerOptions = {
+  lineLength: 50,
+};
+
+interface LineCollector {
+  nextLineEnding: number;
+  currentLine: Line;
+  lines: Line[];
+}
 
 export class LineBreaker {
-  process(words: string[] | null | undefined): Result<Line[]> {
+  private options: LineBreakerOptions = lineBreakerOptionsDefault;
+
+  configure(options: LineBreakerOptions): LineBreaker {
+    this.options = { ...this.options, ...options };
+    return this;
+  }
+
+  process(words: Word[] | null | undefined): Result<Line[]> {
     if (!Array.isArray(words)) {
       return emptyResult();
     }
 
-    //@ts-ignore
-    return words.reduce((lines, word) => {}, { linesTotal: 0, lines: [] });
+    const collector = words.reduce(
+      (lineCollector: LineCollector, word: Word) => {
+        if (word.end <= lineCollector.nextLineEnding) {
+          lineCollector.currentLine = [...lineCollector.currentLine, word];
+        } else {
+          lineCollector.lines = [
+            ...lineCollector.lines,
+            [...lineCollector.currentLine],
+          ];
+          lineCollector.currentLine = [word];
+          lineCollector.nextLineEnding =
+            lineCollector.nextLineEnding * lineCollector.lines.length;
+        }
+        return lineCollector;
+      },
+      {
+        nextLineEnding: this.options.lineLength,
+        currentLine: [],
+        lines: [],
+      }
+    );
+
+    return result(collector.lines);
   }
 }

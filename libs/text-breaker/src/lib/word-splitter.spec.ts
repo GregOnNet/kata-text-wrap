@@ -1,4 +1,4 @@
-describe('WordSplitter', () => {
+describe('@flow-design/word-splitter', () => {
   describe('When text is passed', () => {
     it.each`
       text       | expected
