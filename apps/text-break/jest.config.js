@@ -1,7 +1,7 @@
 module.exports = {
   name: 'text-break',
   preset: '../../jest.config.js',
-  coverageDirectory: '../../coverage/apps/text-break',
+  coverageDirectory: '../../coverage/apps/text-process',
   snapshotSerializers: [
     'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
     'jest-preset-angular/build/AngularSnapshotSerializer.js',

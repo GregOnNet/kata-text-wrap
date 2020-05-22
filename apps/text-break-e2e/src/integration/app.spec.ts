@@ -1,6 +1,6 @@
 import { getGreeting } from '../support/app.po';
 
-describe('text-break', () => {
+describe('text-process', () => {
   beforeEach(() => cy.visit('/'));
 
   it('should display welcome message', () => {
@@ -8,6 +8,6 @@ describe('text-break', () => {
     cy.login('my-email@something.com', 'myPassword');
 
     // Function helper example, see `../support/app.po.ts` file
-    getGreeting().contains('Welcome to text-break!');
+    getGreeting().contains('Welcome to text-process!');
   });
 });

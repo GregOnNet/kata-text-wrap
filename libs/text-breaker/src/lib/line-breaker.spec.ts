@@ -1,4 +1,4 @@
-describe('@flow-design/text-breaker', () => {
+describe('@flow-design/line-breaker', () => {
   describe('When no text is passed', () => {
     it.each`
       noText
@@ -7,9 +7,20 @@ describe('@flow-design/text-breaker', () => {
       ${''}
     `('yields no value', ({ noText }) => {
       const breaker = new LineBreaker();
-      const brokenText = breaker.break(noText);
+      const brokenText = breaker.process(noText);
 
       expect(brokenText.hasValue).toBe(false);
+    });
+  });
+
+  describe('When words are passed', () => {
+    it.skip('breaks lines by the given length', () => {
+      const word = 'hallo';
+      const words = Array(10).fill(word);
+      const lineBreaker = new LineBreaker();
+      const result = lineBreaker.process(words);
+
+      expect(result.value);
     });
   });
 });
@@ -35,10 +46,13 @@ function emptyResult(): Result<null> {
 
 type Line = string;
 
-class LineBreaker {
-  break(text: string | null | undefined): Result<Line[]> {
-    if (!text) {
+export class LineBreaker {
+  process(words: string[] | null | undefined): Result<Line[]> {
+    if (!Array.isArray(words)) {
       return emptyResult();
     }
+
+    //@ts-ignore
+    return words.reduce((lines, word) => {}, { linesTotal: 0, lines: [] });
   }
 }
